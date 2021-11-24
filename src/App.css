@@ -17,3 +17,8 @@ h1 {
   line-height: 87px;
   color: #000000;
 }
+
+a, a:hover, a:visited, a:active {
+  text-decoration: none;
+  color: #00A9A7
+}

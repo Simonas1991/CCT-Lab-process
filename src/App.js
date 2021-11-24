@@ -15,6 +15,7 @@ import './App.css';
 //=================================================//
 
 // steps array
+
 const steps = [
   {
     text: 'Build test task',
@@ -24,7 +25,7 @@ const steps = [
   {
     text: 'Submit your test task',
     nr: 2,
-    list: ['Open email client', 'Send link with information to careers@cornercasetech.com']
+    list: ['Open email client', `Send link to <a href>careers@cornercasetech.com</a> with information `]
   },
   {
     text: 'Participate in tech interview',
@@ -41,8 +42,7 @@ const steps = [
 
 function App() {
   // hooks
-  const [current, setCurrent] = useState('')
-  const [active, setActive] = useState(false)
+  const [current, setCurrent] = useState(null)
   //=================================================//
 
   return (
@@ -50,14 +50,11 @@ function App() {
       <h1>CCT Lab process</h1>
       {steps.map((step, i) => (
         <Step
-          text={step.text}
-          nr={step.nr}
-          list={step.list}
-          id={i}
+          key={i}
+          step={step}
+          index={i}
           currentId={current}
           changeCurrent={setCurrent}
-          act={active}
-          changeAct={setActive}
         />
       ))}
     </Container >

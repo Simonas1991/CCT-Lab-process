@@ -89,15 +89,17 @@ const useStyles = makeStyles(() => ({
 //=================================================//
 
 
-const Step = ({ text, nr, list, id, changeCurrent, currentId, act, changeAct }) => {
+const Step = ({ step, index, changeCurrent, currentId }) => {
     // functions
     const changeStatus = () => {
-        changeCurrent(id)
-        if (act === false) {
-            changeAct(true)
+        if (currentId === null) {
+            changeCurrent(index)
         }
-        else if (act && currentId === id) {
-            changeAct(false)
+        else if (currentId === index) {
+            changeCurrent(null)
+        }
+        else if (currentId !== index && currentId !== null) {
+            changeCurrent(index)
         }
     }
     //=================================================//
@@ -109,16 +111,20 @@ const Step = ({ text, nr, list, id, changeCurrent, currentId, act, changeAct }) 
     return (
         <div className={classes.div}>
             <Paper elevation={6} className={classes.paper} onClick={changeStatus}>
-                <div className={act && currentId === id ? classes.containerActive : classes.container}>
-                    <div className={classes.number}>{nr}</div>
-                    <p className={classes.paragraph}>{text}</p>
+                <div className={currentId === index ? classes.containerActive : classes.container}>
+                    <div className={classes.number}>{step.nr}</div>
+                    <p className={classes.paragraph}>{step.text}</p>
                 </div>
             </Paper>
             {
-                currentId === id && act ?
+                currentId === index ?
                     <ul>
-                        {list.map((listItem, i) => (
-                            <li className={classes.li} key={listItem[i]}>{listItem}</li>
+                        {step.list.map((listItem, i) => (
+                            <li 
+                            className={classes.li} 
+                            key={i} 
+                            dangerouslySetInnerHTML={{__html: listItem}}>
+                            </li>
                         ))}
                     </ul>
                     :
@@ -128,4 +134,4 @@ const Step = ({ text, nr, list, id, changeCurrent, currentId, act, changeAct }) 
     )
 }
 
-export default Step
+export default Step;
